@@ -2,5 +2,5 @@
 .vscode
 .idea
 node_modules
-dist
-/public/css/style.css
+generated
+prisma.yml
