@@ -1,9 +1,5 @@
-import dotenv from 'dotenv';
-import path from 'path';
 import passport from 'passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
-
-dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -21,6 +17,18 @@ const verifyUser = async (payload, done) => {
   } catch (error) {
     return done(error, false);
   }
-}
+};
+
+export const authenticateJwt = (req, res, next) => {
+  return passport.authenticate('jwt', {
+    sessions: false
+  }, (error, user) => {
+    if (user) {
+      req.user = user;
+    }
+    next();
+  })(req, res, next);
+};
 
 passport.use(new Strategy(jwtOptions, verifyUser));
+passport.initialize();
