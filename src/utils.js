@@ -3,6 +3,7 @@ import path from 'path';
 import { adjectives, nouns } from "./words";
 import nodemailer from 'nodemailer';
 import sgTransport from 'nodemailer-sendgrid-transport';
+import jwt from 'jsonwebtoken';
 
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
@@ -30,4 +31,8 @@ export const sendSecretMail = (address, screct) => {
     html: `Hello! Your login secret it <strong>${screct}</strong>.<br>Copy paste on the app/website to login`
   }
   return sendMail(email);
+};
+
+export const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET);
 };
