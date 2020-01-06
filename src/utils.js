@@ -15,9 +15,11 @@ export const sendMail = (email) => {
   const options = {
     auth: {
       api_user: process.env.SENDGRID_USERNAME,
-      api_key: process.env.SENDGRID_USERPASSWORD
+      api_key: process.env.SENDGRID_PASSWORD
     }
   }
+  const client = nodemailer.createTransport(sgTransport(options));
+  return client.sendMail(email);
 };
 
 export const sendSecretMail = (address, screct) => {
@@ -25,6 +27,7 @@ export const sendSecretMail = (address, screct) => {
     from: 'wanho1108@gmail.com',
     to: address,
     subject: 'Login Secret for Instagram',
-    html: `Hello! Your login secret it ${screct}.<br>Copy paste on the app/website to login`
+    html: `Hello! Your login secret it <strong>${screct}</strong>.<br>Copy paste on the app/website to login`
   }
+  return sendMail(email);
 };
