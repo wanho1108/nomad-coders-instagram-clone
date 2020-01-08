@@ -5,8 +5,8 @@ type User {
   firstName: String @default(value: "")
   lastName: String!
   bio: String
-  followsers: [User!]! @relation(name: "FollowRelation")
-  followsing: [User!]! @relation(name: "FollowRelation")
+  followers: [User!]! @relation(name: "Follow")
+  following: [User!]! @relation(name: "Follow")
   posts: [Post!]!
   likes: [Like!]!
   comments: [Comment!]!

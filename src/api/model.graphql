@@ -5,8 +5,8 @@ type User {
   firstName: String
   lastName: String!
   bio: String
-  followsers: [User!]!
-  followsing: [User!]!
+  followers: [User!]!
+  following: [User!]!
   posts: [Post!]!
   likes: [Like!]!
   comments: [Comment!]!
