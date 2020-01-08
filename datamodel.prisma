@@ -3,7 +3,7 @@ type User {
   username: String! @unique
   email: String! @unique
   firstName: String @default(value: "")
-  lastName: String!
+  lastName: String
   bio: String
   followers: [User!]! @relation(name: "Follow")
   following: [User!]! @relation(name: "Follow")
