@@ -1,6 +1,6 @@
 import { prisma } from "../../../generated/prisma-client";
 
-export default {  
+export default {
   User: {
     fullName: parent => {
       return `${parent.firstName} ${parent.lastName}`;
@@ -14,7 +14,7 @@ export default {
             id: user.id
           },
           {
-            following_some: { 
+            following_some: {
               id: parentId
             }
           }
@@ -25,26 +25,6 @@ export default {
       const { user } = request;
       const { id: parentId } = parent;
       return user.id === parentId;
-    }
-  },
-  Post: {
-    isLiked: (parent, args, { request }) => {
-      const { user } = request;
-      const { id: parentId } = parent;
-      return prisma.$exists.like({
-        AND: [
-          {
-            user: {
-              id: user.id
-            }
-          },
-          {
-            post: {
-              id: parentId
-            }
-          }
-        ]
-      });
     }
   }
 }

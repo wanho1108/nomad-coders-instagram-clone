@@ -8,7 +8,7 @@ export default {
       const user = await prisma.user({ email });
       if (user.loginSecret === secret) {
         await prisma.updateUser({
-          whre: {
+          where: {
             id: user.id
           },
           data: {
