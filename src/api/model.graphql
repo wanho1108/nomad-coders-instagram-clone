@@ -36,7 +36,7 @@ type Post {
 type Like {
   id: ID!
   user: User!
-  post: Post!
+  post: Post
   createAt: String
   updateAt: String
 }
@@ -53,7 +53,7 @@ type Comment {
 type File {
   id: ID!
   url: String!
-  post: Post!
+  post: Post
   createAt: String
   updateAt: String
 }
