@@ -53,8 +53,6 @@ type Room {
   id: ID! @id
   participants: [User!]!
   messages: [Message!]!
-  createAt: DateTime! @createAt
-  updateAt: DateTime! @updateAt
 }
 
 type Message {
