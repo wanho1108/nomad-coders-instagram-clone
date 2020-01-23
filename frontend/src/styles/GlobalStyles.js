@@ -16,4 +16,7 @@ export default createGlobalStyle`
   a {
     color: ${props => props.theme.blueColor};
   }
+  input:focus {
+    outline: none;
+  }
 `;
