@@ -53,18 +53,18 @@ export default ({
   username,
   firstName,
   lastName,
-  loginHandler
+  submitHandler
 }) => (
   <Wrapper>
     <Form>
       { action === 'logIn' ?
         (
-          <form onSubmit={loginHandler}>
+          <form onSubmit={submitHandler}>
           <Input type="email" placeholder={'Email'} {...email} />
             <Button text={'Log in'} />
           </form>
         ) : (
-          <form onSubmit={loginHandler}>
+          <form onSubmit={submitHandler}>
             <Input type="email" placeholder={'Email'} {...email} />
             <Input placeholder={'Username'} {...username} />
             <Input placeholder={'First name'} {...firstName} />
