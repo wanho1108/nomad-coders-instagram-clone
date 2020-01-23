@@ -13,8 +13,8 @@ type User {
   comments: [Comment!]! @relation(name: "CommentsOfUser", onDelete: CASCADE)
   rooms: [Room!]!
   loginSecret: String
-  createAt: DateTime! @createAt
-  updateAt: DateTime! @updateAt
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Post {
@@ -25,8 +25,8 @@ type Post {
   files: [File!]! @relation(name: "FilesOfPost", onDelete: CASCADE)
   likes: [Like!]! @relation(name: "LikeOfPost", onDelete: CASCADE)
   comments: [Comment!]! @relation(name: "CommentOfPost", onDelete: CASCADE)
-  createAt: DateTime! @createAt
-  updateAt: DateTime! @updateAt
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Like {
@@ -40,8 +40,8 @@ type Comment {
   text: String!
   user: User @relation(name: "CommentsOfUser")
   post: Post @relation(name: "CommentOfPost")
-  createAt: DateTime! @createAt
-  updateAt: DateTime! @updateAt
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type File {
