@@ -28,7 +28,7 @@ const PostContainer =  ({
   const [addCommentMutation] = useMutation(ADD_COMMENT, {
     variables: {
       postId: id,
-      text: comment
+      text: comment.value
     }
   });
   const slide = useCallback(() => {
@@ -52,6 +52,14 @@ const PostContainer =  ({
       setLikeCount(likeCountState + 1);
     }
   };
+  const commentKeyUpHandler = e => {
+    const { keyCode } = e;
+    if (keyCode === 13) {
+      addCommentMutation();
+      comment.setValue('');
+    }
+    return;
+  }
 
   return (
     <PostPresenter
@@ -68,6 +76,7 @@ const PostContainer =  ({
       setLikeCount={setLikeCount}
       currentItem={currentItem}
       toggleLike={toggleLike}
+      commentKeyUpHandler={commentKeyUpHandler}
     />
   );
 }
