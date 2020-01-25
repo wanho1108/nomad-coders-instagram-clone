@@ -4,6 +4,7 @@ import useInput from '../../hooks/useInput';
 import PostPresenter from './PostPresenter';
 import { TOGGLE_LIKE, ADD_COMMENT } from './PostQueries';
 import { useMutation } from 'react-apollo-hooks';
+import { toast } from 'react-toastify';
 
 const PostContainer =  ({
   id,
@@ -19,18 +20,14 @@ const PostContainer =  ({
   const [isLikedState, setIsLiked] = useState(isLiked);
   const [likeCountState, setLikeCount] = useState(likeCount);
   const [currentItem, setCurrentItem] = useState(0);
+  const [selfComments, setSelfComments] = useState([]);
   const comment = useInput('');
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
     variables: {
       postId: id
     }
   });
-  const [addCommentMutation] = useMutation(ADD_COMMENT, {
-    variables: {
-      postId: id,
-      text: comment.value
-    }
-  });
+  const [addCommentMutation] = useMutation(ADD_COMMENT);
   const slide = useCallback(() => {
     const totalFiles = files.length;
     if (currentItem === totalFiles - 1) {
@@ -52,13 +49,24 @@ const PostContainer =  ({
       setLikeCount(likeCountState + 1);
     }
   };
-  const commentKeyUpHandler = e => {
-    const { keyCode } = e;
-    if (keyCode === 13) {
-      addCommentMutation();
-      comment.setValue('');
+  const commentKeyPressHandler = async e => {
+    const { which } = e;
+    if (which === 13) {
+      try {
+        e.preventDefault();
+        const text = comment.value;
+        comment.setValue('');
+        const { data: { addComment } } = await addCommentMutation({
+          variables: {
+            postId: id,
+            text
+          }
+        });
+        setSelfComments([...selfComments, addComment]);
+      } catch {
+        toast.error(`Can't send comment`);
+      }
     }
-    return;
   }
 
   return (
@@ -70,13 +78,14 @@ const PostContainer =  ({
       caption={caption}
       isLiked={isLikedState}
       comments={comments}
+      selfComments={selfComments}
       createdAt={createdAt}
       newComment={comment}
       setIsLiked={setIsLiked}
       setLikeCount={setLikeCount}
       currentItem={currentItem}
       toggleLike={toggleLike}
-      commentKeyUpHandler={commentKeyUpHandler}
+      commentKeyPressHandler={commentKeyPressHandler}
     />
   );
 }

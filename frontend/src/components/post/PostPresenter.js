@@ -104,13 +104,14 @@ export default ({
   location,
   files,
   comments,
+  selfComments,
   isLiked,
   likeCount,
   createdAt,
   newComment,
   currentItem,
   toggleLike,
-  commentKeyUpHandler
+  commentKeyPressHandler
 }) => (
   <Post>
     <Header>
@@ -139,10 +140,16 @@ export default ({
               {comment.text}
             </Comment>
           ))}
+          { selfComments.map(comment => (
+            <Comment key={comment.id}>
+              <FatText text={comment.user.username} />
+              {comment.text}
+            </Comment>
+          ))}
         </Comments>
       )}
       <Timestamp>{createdAt}</Timestamp>
-      <Textarea placeholder={'Add a comment...'} value={newComment.value} onChange={newComment.onChange} onKeyUp={commentKeyUpHandler} />
+      <Textarea placeholder={'Add a comment...'} value={newComment.value} onChange={newComment.onChange} onKeyPress={commentKeyPressHandler} />
     </Meta>
   </Post>
 )
