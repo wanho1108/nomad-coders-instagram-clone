@@ -5,7 +5,7 @@ import { gql } from 'apollo-boost';
 import Input from './Input';
 import useInput from '../hooks/useInput';
 import { Compass, HeartEmpty, User, Logo } from './Icons';
-import { useQuery } from 'react-apollo-hooks';
+import { useQuery } from "react-apollo-hooks";
 
 const Header = styled.header`
   width: 100%;
@@ -72,8 +72,7 @@ const ME = gql`
 
 export default withRouter(({ history }) => {
   const search = useInput('');
-  const meQuery = useQuery(ME);
-  console.log(meQuery);
+  const { data } = useQuery(ME);
   const searchHandler = e => {
     e.preventDefault();
     history.push(`/search?term=${search.value}`);
@@ -98,9 +97,15 @@ export default withRouter(({ history }) => {
           <HeaderLink to="/notifications">
             <HeartEmpty />
           </HeaderLink>
-          <HeaderLink to="/username">
-            <User />
-          </HeaderLink>
+          {!(data && data.me) ? (
+            <HeaderLink to="/#">
+              <User />
+            </HeaderLink>
+          ) : (
+            <HeaderLink to={data.me.username}>
+              <User />
+            </HeaderLink>
+          )}
         </HeaderColumn>
       </HeaderWrapper>
     </Header>
