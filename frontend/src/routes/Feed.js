@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from "react-helmet";
 import styled from 'styled-components';
 import { gql } from 'apollo-boost';
 import { useQuery } from 'react-apollo-hooks';
@@ -46,6 +47,9 @@ export default () => {
   const { data, loading } = useQuery(FEED_QUERY);
   return (
     <Wrapper>
+      <Helmet>
+        <title>Feed | Instagram</title>
+      </Helmet>
       { loading && <Loader /> }
       {
         !loading &&
@@ -56,9 +60,11 @@ export default () => {
             id={post.id}
             user={post.user}
             files={post.files}
-            lickCount={post.lickCount}
+            likeCount={post.likeCount}
             isLiked={post.isLiked}
             comments={post.comments}
+            caption={post.caption}
+            location={post.location}
             createdAt={post.createdAt}
           />
         ))
