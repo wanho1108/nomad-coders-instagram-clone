@@ -6,6 +6,7 @@ import Avatar from '../../components/Avatar';
 import FatText from '../../components/FatText';
 import FollowButton from '../../components/followButton/';
 import SquarePost from '../../components/SquarePost';
+import Button from '../../components/Button';
 
 const Wrapper = styled.div`
   min-height: 60vh;
@@ -60,7 +61,7 @@ const Posts = styled.div`
   grid-auto-rows: 200px;
 `;
 
-export default ({ loading, data }) => {
+export default ({ loading, data, logOut }) => {
   if (loading) {
     return (
       <Wrapper>
@@ -96,7 +97,11 @@ export default ({ loading, data }) => {
           <HeaderColumn>
             <UsernameRow>
               <Username>{username}</Username>{' '}
-              {!isSelf && <FollowButton isFollowing={isFollowing} id={id} />}
+              {isSelf ? (
+                <Button text="Log out" onClick={logOut}></Button>
+              ) : (
+                <FollowButton isFollowing={isFollowing} id={id} />
+              )}
             </UsernameRow>
             <Counts>
               <Count>
