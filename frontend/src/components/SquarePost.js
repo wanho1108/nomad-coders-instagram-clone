@@ -11,7 +11,7 @@ const Overlay = styled.div`
   justify-content: center;
   align-items: center;
   opacity: 0;
-  transition; opacity .3s linear;
+  transition: opacity .3s linear;
   svg {
     fill: #fff;
   }

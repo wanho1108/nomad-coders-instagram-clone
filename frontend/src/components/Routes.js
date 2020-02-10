@@ -5,7 +5,7 @@ import Auth from '../routes/auth';
 import Feed from '../routes/Feed';
 import Explore from '../routes/Explore';
 import Search from '../routes/search';
-import Profile from '../routes/Profile';
+import Profile from '../routes/profile';
 
 const LoggedInRoutes = () => (
   <Switch>
