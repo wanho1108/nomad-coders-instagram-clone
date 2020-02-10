@@ -17,7 +17,7 @@ const FollowButtonContainer = ({ isFollowing, id }) => {
     }
   });
   const onClick = () => {
-    if (isFollowing === true) {
+    if (isFollowingState === true) {
       setIsFollowing(false);
       unfollowMutation();
     } else {
