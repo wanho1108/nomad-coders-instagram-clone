@@ -31,7 +31,7 @@ const Avatar = ({ size = 'sm', url, className }) => <Container size={size} url={
 
 Avatar.propTypes = {
   size: PropTypes.oneOf(['sm', 'md', 'lg']),
-  url: PropTypes.string.isRequired
+  url: PropTypes.string
 }
 
 export default Avatar;
